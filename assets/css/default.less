@@ -1,0 +1,46 @@
+/**
+ * This is NOT a freeware, use is subject to license terms
+ * @author siYuan <siyuanjunr@qq.com>
+ */
+
+.search-form {
+    .function-transition-all-ease();
+    position: absolute;
+    right: 30px;
+    top: -30px;
+    box-shadow: 1px 2px 20px -1px rgba(0, 0, 0, 0.123);
+    background: #ffffff;
+    border: 1px solid #e6e5e5;
+    padding: 8px 10px 8px 5px;
+    border-radius: 3px;
+    visibility: hidden;
+    opacity: 0;
+
+    &.cur {
+        .function-transition-all-ease();
+        top: -11px;
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .sear {
+        box-shadow: 1px 2px 10px -1px rgba(0, 0, 0, 0, 0.567);
+        padding: 5px;
+    }
+}
+
+.header-lnline-height {
+    height: 87px;
+}
+
+.max-text-2 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    height: 3em;
+    line-height: 1.5;
+}
+
+@media (max-width: 640px) {
+}
