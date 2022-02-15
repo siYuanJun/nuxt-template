@@ -29,17 +29,16 @@ export default {
     },
 
     // Global CSS (https://go.nuxtjs.dev/config-css)
-    css: ['~/assets/css/normailze.less', '~/plugins/colorui/normailze.less', 'fluid-player/src/css/fluidplayer.css', 'vue-happy-scroll/docs/happy-scroll.css'],
+    css: ['~/assets/css/normailze.less', '~/colorui/normailze.less', 'fluid-player/src/css/fluidplayer.css', 'vue-happy-scroll/docs/happy-scroll.css'],
 
     // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
     plugins: [
         { src: '@/plugins/axios' },
+        { src: '@/plugins/axios-plugin' },
         { src: '@/plugins/i18n' },
         { src: '@/plugins/hashids' },
         { src: '@/plugins/baidu' },
-        { src: '@/plugins/vue-pdf', ssr: false },
         { src: '@/plugins/function' },
-        { src: '@/plugins/routes' },
         { src: '@/main' },
     ],
 
@@ -71,7 +70,7 @@ export default {
 
     // 该对象的 objectValue 可以使用 this.$config 从客户端和服务器访问
     publicRuntimeConfig: {
-        webTitle: 'webTitle',
+        webTitle,
     },
 
     // 此对象的 objectValue 只能使用 $config 从服务器访问。覆盖服务器的 publicRuntimeConfig。
@@ -108,7 +107,7 @@ export default {
 
     // Build Configuration (https://go.nuxtjs.dev/config-build)
     build: {
-        vendor: ['vue-i18n', 'hashids', 'routes', 'functions'],
+        vendor: ['vue-i18n', 'hashids', 'functions'],
     },
 
     /*
