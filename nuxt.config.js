@@ -25,11 +25,20 @@ export default {
             { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
             { rel: 'stylesheet', href: '/plugins/swiper/swiper.min.css' },
         ],
-        script: [{ src: '/js/jquery.min.js' }, { src: '/plugins/swiper/swiper.min.js' }, { src: '/js/common.js' }],
+        script: [
+            { src: '/js/jquery.min.js' },
+            { src: '/plugins/swiper/swiper.min.js' },
+            { src: '/js/common.js' },
+        ],
     },
 
     // Global CSS (https://go.nuxtjs.dev/config-css)
-    css: ['~/assets/css/normailze.less', '~/colorui/normailze.less', 'fluid-player/src/css/fluidplayer.css', 'vue-happy-scroll/docs/happy-scroll.css'],
+    css: [
+        '~/assets/css/normailze.less',
+        '~/static/plugins/colorui/normailze.less',
+        'fluid-player/src/css/fluidplayer.css',
+        'vue-happy-scroll/docs/happy-scroll.css',
+    ],
 
     // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
     plugins: [
@@ -69,9 +78,7 @@ export default {
     },
 
     // 该对象的 objectValue 可以使用 this.$config 从客户端和服务器访问
-    publicRuntimeConfig: {
-        webTitle,
-    },
+    publicRuntimeConfig: {},
 
     // 此对象的 objectValue 只能使用 $config 从服务器访问。覆盖服务器的 publicRuntimeConfig。
     privateRuntimeConfig: {},

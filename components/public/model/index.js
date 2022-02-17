@@ -1,4 +1,4 @@
-import model from './model.vue'
+import model from './models.vue'
 
 export default {
     install(Vue) {
