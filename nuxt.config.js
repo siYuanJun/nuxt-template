@@ -36,18 +36,18 @@ export default {
     css: [
         '~/assets/css/normailze.less',
         '~/static/plugins/colorui/normailze.less',
+
         'fluid-player/src/css/fluidplayer.css',
         'vue-happy-scroll/docs/happy-scroll.css',
+        'element-ui/lib/theme-chalk/index.css',
     ],
 
     // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
     plugins: [
         { src: '@/plugins/axios' },
-        { src: '@/plugins/axios-plugin' },
         { src: '@/plugins/i18n' },
-        { src: '@/plugins/hashids' },
-        { src: '@/plugins/baidu' },
         { src: '@/plugins/function' },
+        { src: '@/plugins/axios-plugin' },
         { src: '@/main' },
     ],
 
@@ -114,7 +114,7 @@ export default {
 
     // Build Configuration (https://go.nuxtjs.dev/config-build)
     build: {
-        vendor: ['vue-i18n', 'hashids', 'functions'],
+        vendor: ['vue-i18n', 'functions', 'element-ui'],
     },
 
     /*
@@ -128,7 +128,7 @@ export default {
      * */
     router: {
         // mode: 'hash',
-        middleware: 'i18n', // middleware all pages of the application
+        // middleware: 'i18n', // middleware all pages of the application
     },
 
     loading: {

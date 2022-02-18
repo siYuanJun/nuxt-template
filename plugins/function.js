@@ -2,6 +2,51 @@ import Vue from 'vue'
 
 export default ({ params, $axios, app, route, store, redirect }) => {
     Vue.prototype.$tools = app.$tools = {
+        windowScrollFun() {
+            this.$nextTick(() => {
+                const s1 = document.getElementById('page1')
+                const s2 = document.getElementById('page2')
+                const s3 = document.getElementById('page4')
+                const s4 = document.getElementById('page5')
+                const boxArr = [s1, s2, s3, s4]
+
+                window.onscroll = () => {
+                    this.scrollFun(boxArr)
+                }
+            })
+        },
+        // https://blog.csdn.net/weixin_42703239/article/details/102263532
+        scrollFun(boxArr) {
+            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
+            const winHeight = document.documentElement.clientHeight || document.body.clientHeight
+            for (let i = 0; i <= boxArr.length - 1; i++) {
+                //  boxArr[i].offsetTop  标签距离页面顶部的距离
+                const oTop = boxArr[i].offsetTop
+                const bH = boxArr[i].offsetHeight
+                if (
+                    (oTop - scrollTop >= 0 && scrollTop + winHeight - oTop > 100) ||
+                    ((oTop + bH - scrollTop) / winHeight > 0.8 && oTop - scrollTop <= 0)
+                ) {
+                    // console.info(boxArr[i].id) // 如果进入到窗口，输出 id
+                    const obj = $(`.${boxArr[i].id}`)
+                    $('.header-page .nav .item').removeClass('cur')
+                    $(obj).addClass('cur')
+                }
+            }
+        },
+        copyUrl(value) {
+            const oInput = document.createElement('input')
+            oInput.value = value
+            document.body.appendChild(oInput)
+            oInput.select() // 选择对象
+            document.execCommand('Copy') // 执行浏览器复制命令
+            oInput.className = 'oInput'
+            oInput.style.display = 'none'
+            this.$tools.showModel(this, {
+                content: this.$t('hbCopyText'),
+                cancelButton: 1,
+            })
+        },
         // 对象转 formdata 格式
         jsToFormData(data) {
             let ret = ''
