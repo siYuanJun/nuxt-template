@@ -2,7 +2,7 @@ import encrytion from './encrytion'
 
 export default ({ $axios, app, redirect, store }) => {
     // $axios.setHeader('Authorization-Token', 'xxxxx')
-    $axios.setHeader('content-type', 'application/x-www-form-urlencoded')
+    // $axios.setHeader('content-type', 'application/x-www-form-urlencoded')
 
     $axios.defaults.withCredentials = true
 

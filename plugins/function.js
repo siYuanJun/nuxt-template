@@ -1,51 +1,51 @@
-import Vue from 'vue'
+export default ({ route, app }, inject) => {
+    const tools = {
+        deepClone(obj) {
+            const newObj = Array.isArray(obj) ? [] : {}
 
-export default ({ params, $axios, app, route, store, redirect }) => {
-    Vue.prototype.$tools = app.$tools = {
-        windowScrollFun() {
-            this.$nextTick(() => {
-                const s1 = document.getElementById('page1')
-                const s2 = document.getElementById('page2')
-                const s3 = document.getElementById('page4')
-                const s4 = document.getElementById('page5')
-                const boxArr = [s1, s2, s3, s4]
-
-                window.onscroll = () => {
-                    this.scrollFun(boxArr)
+            if (obj && typeof obj === 'object') {
+                for (const key in obj) {
+                    // eslint-disable-next-line no-prototype-builtins
+                    if (obj.hasOwnProperty(key)) {
+                        newObj[key] = obj && typeof obj[key] === 'object' ? this.deepClone(obj[key]) : obj[key]
+                    }
                 }
-            })
+            }
+            return newObj
+        },
+        topMao(target) {
+            if (!target) {
+                return
+            }
+            if ($(target).offset()) {
+                $('html, body').animate({ scrollTop: $(target).offset().top }, 300) // 130为锚点到距顶部的距离，500为执行时间
+            }
+        },
+        windowScrollChange(boxArr) {
+            const boxDocumentArr = []
+            for (let i = 0; i <= boxArr.length - 1; i++) {
+                boxDocumentArr[i] = document.getElementById(boxArr[i])
+            }
+
+            window.onscroll = () => {
+                this.scrollChange(boxDocumentArr)
+            }
         },
         // https://blog.csdn.net/weixin_42703239/article/details/102263532
-        scrollFun(boxArr) {
+        scrollChange(boxArr) {
             const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
             const winHeight = document.documentElement.clientHeight || document.body.clientHeight
             for (let i = 0; i <= boxArr.length - 1; i++) {
                 //  boxArr[i].offsetTop  标签距离页面顶部的距离
                 const oTop = boxArr[i].offsetTop
                 const bH = boxArr[i].offsetHeight
-                if (
-                    (oTop - scrollTop >= 0 && scrollTop + winHeight - oTop > 100) ||
-                    ((oTop + bH - scrollTop) / winHeight > 0.8 && oTop - scrollTop <= 0)
-                ) {
+                if ((oTop - scrollTop >= 0 && scrollTop + winHeight - oTop > 100) || ((oTop + bH - scrollTop) / winHeight > 0.5 && oTop - scrollTop <= 0)) {
                     // console.info(boxArr[i].id) // 如果进入到窗口，输出 id
                     const obj = $(`.${boxArr[i].id}`)
-                    $('.header-page .nav .item').removeClass('cur')
-                    $(obj).addClass('cur')
+                    $('#menu li').removeClass('active')
+                    obj.addClass('active')
                 }
             }
-        },
-        copyUrl(value) {
-            const oInput = document.createElement('input')
-            oInput.value = value
-            document.body.appendChild(oInput)
-            oInput.select() // 选择对象
-            document.execCommand('Copy') // 执行浏览器复制命令
-            oInput.className = 'oInput'
-            oInput.style.display = 'none'
-            this.$tools.showModel(this, {
-                content: this.$t('hbCopyText'),
-                cancelButton: 1,
-            })
         },
         // 对象转 formdata 格式
         jsToFormData(data) {
@@ -67,13 +67,13 @@ export default ({ params, $axios, app, route, store, redirect }) => {
             if (process.env.DEBUG) {
                 switch (type) {
                 case 0:
-                    console.log(`[info](${curRoute})`, content, json)
+                    console.info(`[info](${curRoute})`, content, json)
                     break
                 case 1:
-                    console.log(`[warning](${curRoute})`, content, json)
+                    console.warn(`[warning](${curRoute})`, content, json)
                     break
                 case 2:
-                    console.log(`[error](${curRoute})`, content, json)
+                    console.error(`[error](${curRoute})`, content, json)
                     break
                 default:
                     break
@@ -86,14 +86,10 @@ export default ({ params, $axios, app, route, store, redirect }) => {
                 let status = 0
                 for (let i = 0; i < field.length; i++) {
                     if (formData[field[i]] === '') {
-                        this.showModel(
-                            that,
-                            {
-                                content: that.$t(`${message[0]}.${field[i]}`) + (message[1] ?? '不能为空'),
-                                cancelButton: 1,
-                            },
-                            () => {},
-                        )
+                        that.$message({
+                            message: message[i] ?? '不能为空',
+                            type: 'warning',
+                        })
                         return
                     }
                     status += 1
@@ -103,40 +99,12 @@ export default ({ params, $axios, app, route, store, redirect }) => {
                 }
             })
         },
-        // 请求封装
-        requests(url, formData, methods) {
-            methods = methods ?? '$post'
-            formData = formData ?? {}
-            // 拦截器查看
-            return $axios[methods](url, formData)
-        },
-        // 实现模板字符串解析功能
-        render(template, data) {
-            return template.replace(/\{\{(\w+)\}\}/g, (match, key) => {
-                return data[key]
-            })
-        },
-        // 语言切换
-        changeLanguage(that, language) {
-            // console.log("url fullPath", language, that.$route.fullPath)
-            // this.requests(that.$routeApi.api_lang, {lang: language}, "$post")
-            that.$store.commit('SET_LANG', language) // set store
-            const { locale } = that.$store.state
-            if (language === 'zh') {
-                that.$router.push(that.$route.fullPath.replace(/^\/[^/]+/, ''))
-            } else if (language === 'en') {
-                // 防止重复点击
-                if (locale !== 'zh') {
-                    that.$router.push(that.$route.fullPath.replace('/zh', '/en'))
-                }
-            }
-        },
         // 设置网页标题
         setWebTitle(that, titleArray) {
             titleArray = titleArray ?? []
             // titleArray = titleArray.reverse()
             let titles = ''
-            const webTitle = that.$t(that.$config.webTitle)
+            const webTitle = that.$t('webTitle')
             for (let i = 0; i < titleArray.length; i++) {
                 // console.log(titleArray[i])
                 if (titleArray[i].title) {
@@ -157,48 +125,39 @@ export default ({ params, $axios, app, route, store, redirect }) => {
             }
             return bool // 返回bool
         },
-        // 多选模型
-        checkFun(that, index, value, type, checkData) {
-            const itemType = that.paramLoca[type]
-            if (itemType.length === 0) {
-                itemType.push(value)
-                checkData[index].checked = true
-                return
-            }
-            const item = checkData[index]
-            if (this.has(itemType, value)) {
-                item.checked = false
-                for (let i = 0, len = itemType.length; i < len; i++) {
-                    if (itemType[i] === value) {
-                        itemType.splice(i, 1)
-                    }
-                }
-            } else {
-                item.checked = true
-                itemType.push(value)
-            }
-            this.dd('选中', itemType)
-        },
-        // 模态框
-        showModel(that, data, call) {
-            that.$model({
-                show: true,
-                title: data.title ? data.title : that.$t('model.title'),
-                content: data.content,
-                cancelButton: data.cancelButton !== 1,
-                confirmText: data.confirmText ? data.confirmText : that.$t('model.confirmText'),
-                cancelText: data.cancelText ? data.cancelText : that.$t('model.cancelText'),
-                confirmCallBack: () => {
-                    call(1)
-                },
-                cancelCallBack: () => {
-                    call(2)
-                },
-            })
-        },
         phoneVerification(phone) {
             const myreg = /^[1][3,4,5,7,8,9][0-9]{9}$/
             return !myreg.test(phone)
         },
+        emailVerification(str) {
+            const reg = /^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/
+            return !reg.test(str)
+        },
+        setLocalStorage(key, data) {
+            try {
+                localStorage.setItem(key, JSON.stringify(data))
+            } catch (error) {}
+        },
+        getLocalStorage(key) {
+            try {
+                return JSON.parse(localStorage.getItem(key))
+            } catch (error) {}
+        },
+        phoneSet(tells) {
+            const tell = /(\d{3})\d*(\d{4})/
+            return tells.replace(tell, '$1****$2')
+        },
+        setImgUrl(src) {
+            if (src) {
+                const newStr = src.indexOf('http')
+                if (newStr === 0) {
+                    return src
+                }
+                return `${app.$config.API_BASE_URL}/${src}`
+            }
+            return app.$config.API_BASE_URL
+        },
     }
+
+    inject('tools', tools)
 }

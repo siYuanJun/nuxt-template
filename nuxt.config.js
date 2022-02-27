@@ -48,6 +48,7 @@ export default {
         { src: '@/plugins/i18n' },
         { src: '@/plugins/function' },
         { src: '@/plugins/axios-plugin' },
+        { src: '@/plugins/common' },
         { src: '@/main' },
     ],
 

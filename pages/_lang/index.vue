@@ -7,6 +7,11 @@
 </template>
 
 <script>
+if (process.browser) {
+    // 在这里根据环境引入wow.js
+    const { WOW } = require('wowjs')
+}
+
 export default {
     components: {},
     asyncData({ params, $axios, app, route, store }) {
@@ -22,7 +27,7 @@ export default {
     data() {
         return {
             columnData: [],
-            paramData: [{ data: {}, column: {} }],
+            paramData: [],
         }
     },
     head() {
@@ -33,7 +38,15 @@ export default {
     },
     created() {},
     mounted() {
-        this.$nextTick(() => {})
+        this.$nextTick(() => {
+            if (process.browser) {
+                // 在页面mounted生命周期里面 根据环境实例化WOW
+                new WOW({
+                    live: false,
+                    offset: 0,
+                }).init()
+            }
+        })
     },
     methods: {},
 }
