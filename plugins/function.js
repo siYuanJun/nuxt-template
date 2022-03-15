@@ -101,8 +101,8 @@ export default ({ route, app }, inject) => {
         },
         // 设置网页标题
         setWebTitle(that, titleArray) {
-            titleArray = titleArray ?? []
-            // titleArray = titleArray.reverse()
+            titleArray = this.deepClone(titleArray) ?? []
+            titleArray.reverse()
             let titles = ''
             const webTitle = that.$t('webTitle')
             for (let i = 0; i < titleArray.length; i++) {
