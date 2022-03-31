@@ -27,6 +27,7 @@
         "cookie-universal-nuxt": "^2.1.5",
         "core-js": "^3.6.5",
         "cross-env": "^7.0.3",
+        "element-ui": "^2.15.6",
         "fluid-player": "^3.0.4",
         "hashids": "^2.2.8",
         "nuxt": "^2.15.6",
@@ -49,6 +50,7 @@
         "autoprefixer": "^9.8.6",
         "babel-core": "7.0.0-bridge.0",
         "babel-jest": "^26.5.0",
+        "babel-plugin-transform-remove-console": "^6.9.4",
         "commitizen": "^4.2.4",
         "cz-conventional-changelog": "^3.3.0",
         "eslint": "^7.32.0",
@@ -65,8 +67,7 @@
         "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.1.4",
         "vue-happy-scroll": "^2.1.1",
         "vue-jest": "^3.0.4",
-        "vue-paginator-simple": "^1.0.4",
-        "babel-plugin-transform-remove-console": "^6.9.4"
+        "vue-paginator-simple": "^1.0.4"
     },
     "config": {
         "nuxt": {
