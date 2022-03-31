@@ -147,15 +147,9 @@ export default ({ route, app }, inject) => {
             const tell = /(\d{3})\d*(\d{4})/
             return tells.replace(tell, '$1****$2')
         },
-        setImgUrl(src) {
-            if (src) {
-                const newStr = src.indexOf('http')
-                if (newStr === 0) {
-                    return src
-                }
-                return `${app.$config.API_BASE_URL}/${src}`
-            }
-            return app.$config.API_BASE_URL
+        setImgUrl(imgUrl) {
+            const newStr = imgUrl.indexOf('http')
+            return newStr === 0 ? imgUrl : (app.$config.API_BASE_URL + imgUrl)
         },
     }
 

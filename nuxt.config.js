@@ -2,6 +2,11 @@ import env from './env'
 
 const { API_BASE_URL, API_BASE_SECRET, NODE_ENV, DEBUG } = env
 
+const buildPlugins = []
+if (NODE_ENV === 'production') {
+    buildPlugins.push('transform-remove-console')
+}
+
 export default {
     // VUE文件使用ENV参数必须在此处配置
     env: {
@@ -116,6 +121,9 @@ export default {
     // Build Configuration (https://go.nuxtjs.dev/config-build)
     build: {
         vendor: ['vue-i18n', 'functions', 'element-ui'],
+        babel: {
+            buildPlugins,
+        },
     },
 
     /*
