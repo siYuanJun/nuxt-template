@@ -1,7 +1,7 @@
 <template>
     <div class="">
         <div class="text-xxl text-gray-999 text-center p-lg">
-            Hello Word
+            <nuxt-link :to="$i18n.path('article/content')">Hello Word</nuxt-link>
         </div>
     </div>
 </template>
@@ -9,7 +9,7 @@
 <script>
 if (process.browser) {
     // 在这里根据环境引入wow.js
-    const { WOW } = require('wowjs')
+
 }
 
 export default {
@@ -32,7 +32,7 @@ export default {
     },
     head() {
         return {
-            title: this.$tools.setWebTitle(this),
+            title: this.$tools.setWebTitle(),
             script: [],
         }
     },
@@ -40,6 +40,7 @@ export default {
     mounted() {
         this.$nextTick(() => {
             if (process.browser) {
+                const { WOW } = require('wowjs')
                 // 在页面mounted生命周期里面 根据环境实例化WOW
                 new WOW({
                     live: false,
@@ -52,4 +53,4 @@ export default {
 }
 </script>
 
-<style scoped lang="less"></style>
+<style scoped lang="scss"></style>

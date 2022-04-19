@@ -4,7 +4,7 @@
  */
 
 .search-form {
-    .function-transition-all-ease();
+    @include function-transition-all-ease();
     position: absolute;
     right: 30px;
     top: -30px;
@@ -17,14 +17,14 @@
     opacity: 0;
 
     &.cur {
-        .function-transition-all-ease();
+        @include function-transition-all-ease();
         top: -11px;
         opacity: 1;
         visibility: visible;
     }
 
     .sear {
-        box-shadow: 1px 2px 10px -1px rgba(0, 0, 0, 0, 0.567);
+        box-shadow: 1px 2px 10px -1px rgba(0, 0, 0, 0.567);
         padding: 5px;
     }
 }

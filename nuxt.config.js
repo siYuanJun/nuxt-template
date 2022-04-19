@@ -2,9 +2,9 @@ import env from './env'
 
 const { API_BASE_URL, API_BASE_SECRET, NODE_ENV, DEBUG } = env
 
-const buildPlugins = []
+const plugins = []
 if (NODE_ENV === 'production') {
-    buildPlugins.push('transform-remove-console')
+    plugins.push('transform-remove-console')
 }
 
 export default {
@@ -30,32 +30,14 @@ export default {
             { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
             { rel: 'stylesheet', href: '/plugins/swiper/swiper.min.css' },
         ],
-        script: [
-            { src: '/js/jquery.min.js' },
-            { src: '/plugins/swiper/swiper.min.js' },
-            { src: '/js/common.js' },
-        ],
+        script: [{ src: '/js/jquery.min.js' }, { src: '/plugins/swiper/swiper.min.js' }, { src: '/js/common.js' }],
     },
 
     // Global CSS (https://go.nuxtjs.dev/config-css)
-    css: [
-        '~/assets/css/normailze.less',
-        '~/static/plugins/colorui/normailze.less',
-
-        'fluid-player/src/css/fluidplayer.css',
-        'vue-happy-scroll/docs/happy-scroll.css',
-        'element-ui/lib/theme-chalk/index.css',
-    ],
+    css: ['~/assets/css/normailze.scss', 'fluid-player/src/css/fluidplayer.css', 'element-ui/lib/theme-chalk/index.css'],
 
     // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-    plugins: [
-        { src: '@/plugins/axios' },
-        { src: '@/plugins/i18n' },
-        { src: '@/plugins/function' },
-        { src: '@/plugins/axios-plugin' },
-        { src: '@/plugins/common' },
-        { src: '@/main' },
-    ],
+    plugins: [{ src: '@/plugins/axios' }, { src: '@/plugins/i18n' }, { src: '@/plugins/function' }, { src: '@/plugins/axios-plugin' }, { src: '@/plugins/common' }, { src: '@/main' }],
 
     generate: {
         routes: ['/'],
@@ -71,10 +53,9 @@ export default {
     // Modules (https://go.nuxtjs.dev/config-modules)
     modules: [
         // https://go.nuxtjs.dev/pwa
-        '@nuxtjs/pwa',
-        '@nuxtjs/style-resources',
         '@nuxtjs/axios',
         ['cookie-universal-nuxt', { parseJSON: true }],
+        '@nuxtjs/style-resources',
     ],
 
     axios: {
@@ -113,16 +94,14 @@ export default {
 
     // Initial loading css
     styleResources: {
-        less: [
-            './assets/css/variables.less', // 全局 less 变量
-        ],
+        scss: ['./assets/css/_mixins.scss', './assets/css/variables.scss'],
     },
 
     // Build Configuration (https://go.nuxtjs.dev/config-build)
     build: {
-        vendor: ['vue-i18n', 'functions', 'element-ui'],
+        vendor: ['vue-i18n', 'element-ui'],
         babel: {
-            buildPlugins,
+            plugins,
         },
     },
 
@@ -137,7 +116,7 @@ export default {
      * */
     router: {
         // mode: 'hash',
-        // middleware: 'i18n', // middleware all pages of the application
+        middleware: 'i18n', // middleware all pages of the application
     },
 
     loading: {

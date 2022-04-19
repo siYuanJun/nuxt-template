@@ -210,7 +210,7 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .logo-model {
     position: fixed;
     top: 0;
@@ -221,7 +221,7 @@ export default {
     background: rgba(0, 0, 0, 0.345);
     opacity: 0;
     visibility: hidden;
-    .function-transition-all-ease();
+    @include function-transition-all-ease();
 
     &.show {
         opacity: 1;

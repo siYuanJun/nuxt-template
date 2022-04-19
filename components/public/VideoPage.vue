@@ -88,7 +88,7 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 div.fluid-component {
     position: relative;
 
@@ -97,11 +97,11 @@ div.fluid-component {
         height: 100%;
     }
 
-    /deep/ .fluid_video_wrapper {
+    >>> .fluid_video_wrapper {
         width: 100% !important;
     }
 
-    /deep/ .fluid_theatre_mode {
+    >>> .fluid_theatre_mode {
         z-index: 999999 !important;
     }
 

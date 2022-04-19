@@ -169,18 +169,15 @@ textarea:-webkit-autofill {
 }
 
 .imgzoom {
-    .function-transition-all-ease();
+    @include function-transition-all-ease();
 }
 
 .imgzoom:hover {
-    .function-transition-all-ease();
+    @include function-transition-all-ease();
 }
 
 a.imgzoom:hover img {
-    -webkit-transform-origin: center center;
-    -webkit-transform: scale(1.1, 1.1);
-    -moz-transform-origin: center center;
-    -moz-transform: scale(1.1, 1.1);
+    @include function-transform-scale-rotate(1.1, 0deg);
 }
 
 .wp {
@@ -252,7 +249,7 @@ a.imgzoom:hover img {
     top: 50%;
     right: 0;
     margin-top: -1.5px;
-    .function-transition-all-ease();
+    @include function-transition-all-ease();
 }
 
 .sykui-menu:after {
@@ -271,7 +268,7 @@ a.imgzoom:hover img {
 
 .sykui-menu.exit-open span {
     right: -100%;
-    .function-transition-all-ease();
+    @include function-transition-all-ease();
 }
 
 .sykui-menu.exit-open:after {

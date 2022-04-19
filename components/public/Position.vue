@@ -28,7 +28,7 @@
 
 <script>
 export default {
-    name: 'Postion',
+    name: 'Position',
     props: {
         textPrentPos: {
             type: Array,
@@ -43,9 +43,23 @@ export default {
             textPos: [],
         }
     },
+    watch: {
+        textPrentPos: {
+            handler(val) {
+                val.forEach((item) => {
+                    if (item.title) {
+                        this.textPos.push({
+                            title: item.title,
+                            url: item.url,
+                        })
+                    }
+                })
+            }
+        },
+    },
     mounted() {
         this.id = this.$route.params.id ?? 0
-        this.getData()
+        // this.getData()
     },
     methods: {
         async getData() {
@@ -84,7 +98,7 @@ export default {
 }
 </script>
 
-<style scoped lang="less">
+<style scoped lang="scss">
 .item-pos {
     > div:nth-last-child(1) .icon-right {
         display: none;

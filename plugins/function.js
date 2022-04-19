@@ -100,17 +100,22 @@ export default ({ route, app }, inject) => {
             })
         },
         // 设置网页标题
-        setWebTitle(that, titleArray) {
+        setWebTitle(titleArray) {
             titleArray = this.deepClone(titleArray) ?? []
-            titleArray.reverse()
+
+            if(titleArray.length) {
+                titleArray.reverse()
+            }
+
             let titles = ''
-            const webTitle = that.$t('webTitle')
+            const webTitle = app.i18n.t('webTitle')
             for (let i = 0; i < titleArray.length; i++) {
                 // console.log(titleArray[i])
                 if (titleArray[i].title) {
                     titles += `${titleArray[i].title}_`
                 }
             }
+
             titles += webTitle
             return titles
         },

@@ -80,7 +80,7 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .login-code-button.el-button--primary {
     color: #7d7d7d;
     border: 1px solid #e2e2e2;
@@ -96,8 +96,8 @@ export default {
     }
 
     &:hover {
-        color: @---theme-color;
-        border: 1px solid @---theme-color;
+        color: $---theme-color;
+        border: 1px solid $---theme-color;
     }
 }
 </style>
