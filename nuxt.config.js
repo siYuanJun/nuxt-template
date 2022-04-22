@@ -34,7 +34,15 @@ export default {
     },
 
     // Global CSS (https://go.nuxtjs.dev/config-css)
-    css: ['~/assets/css/normailze.scss', 'fluid-player/src/css/fluidplayer.css', 'element-ui/lib/theme-chalk/index.css'],
+    css: [
+        {
+            src: '~/assets/css/normailze.scss',
+        },
+        {
+            src: '~/static/plugins/colorui/normailze.scss',
+        },
+        'fluid-player/src/css/fluidplayer.css',
+    ],
 
     // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
     plugins: [{ src: '@/plugins/axios' }, { src: '@/plugins/i18n' }, { src: '@/plugins/function' }, { src: '@/plugins/axios-plugin' }, { src: '@/plugins/common' }, { src: '@/main' }],
@@ -81,12 +89,12 @@ export default {
                 changeOrigin: true,
             },
         },
-        '/profile/': {
+        '/uploads/': {
             target: API_BASE_URL,
             // secure: false,  // 如果是 https 接口，需要配置这个参数
             changeOrigin: true, // 如关闭可能接口出现异常
             pathRewrite: {
-                '^/profile': '/profile',
+                '^/uploads': '/uploads',
                 changeOrigin: true,
             },
         },
@@ -94,7 +102,7 @@ export default {
 
     // Initial loading css
     styleResources: {
-        scss: ['./assets/css/_mixins.scss', './assets/css/variables.scss'],
+        scss: ['./assets/css/_variable.scss', './assets/css/_mixins.scss'],
     },
 
     // Build Configuration (https://go.nuxtjs.dev/config-build)

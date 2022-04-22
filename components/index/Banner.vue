@@ -1,16 +1,28 @@
 <template>
-    <div class="respBanner mt-sm">
-        <div v-show="bannerDom" class="swiper-container">
+    <div class="respBanner fs0">
+        <div v-show="bannerDom" class="swiper swiper-container">
             <div class="swiper-wrapper">
-                <div v-for="(item, index) in paramData" :key="index" class="swiper-slide">
-                    <nuxt-link :to="item.gourl ? item.gourl : '#'">
-                        <img :src="item.image" :alt="item.title">
-                    </nuxt-link>
+                <div v-for="(item, index) in paramData" :key="index" class="relative swiper-slide">
+                    <img :src="item.image" :alt="item.title" class=" object-cover w-full" />
+                    <div class="h-full absolute left top-none z-10 w-full">
+                        <div class="wp h-full flex items-center relative">
+                            <div class="banner-content">
+                                <div class="text-sxl text-white font-bold">
+                                    {{ item.title }}
+                                </div>
+                                <div class="text-lg text-white">
+                                    {{ item.intro }}
+                                </div>
+                                <div class="flex mt-lg">
+                                    <a target="_blank" class="flex rounded-md pl-md pr-md pt-sm pb-sm bg-themes text-white text-center text-sm" :href="item.gourl ? item.gourl : '#'">探索更多 +</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <div class="swiper-pagination"></div>
         </div>
-        <div class="swiper-button swiper-button-next swiper-button-white" />
-        <div class="swiper-button swiper-button-prev swiper-button-white" />
     </div>
 </template>
 
@@ -19,7 +31,7 @@ export default {
     name: 'Banner',
     data() {
         return {
-            paramData: [],
+            paramData: [{ image: '/images/banner.png' }],
             bannerDom: true,
         }
     },
@@ -27,17 +39,17 @@ export default {
         this.$nextTick(() => {
             // this.bannerInit()
         })
-        // this.getBanner()
+        this.getBanner()
     },
     methods: {
         bannerInit() {
-            const that = this
-            const swiper = new Swiper('.respBanner .swiper-container', {
-                initialSlide: -1,
-                slidesPerView: 3,
-                spaceBetween: 15,
+            new Swiper('.respBanner .swiper', {
+                initialSlide: 1,
+                slidesPerView: 1,
+                spaceBetween: 0,
                 slidesPerGroup: 1,
-                loop: true,
+                // observer: true,
+                // loop: true,
                 loopFillGroupWithBlank: true,
                 // effect: 'fade',
                 // centeredSlides : true,
@@ -47,33 +59,15 @@ export default {
                     clickable: true,
                 },
                 speed: 500,
-                // autoplay: {
-                //     delay: 4000,
-                //     disableOnInteraction: false,
-                // },
-                navigation: {
-                    nextEl: '.respBanner .swiper-button-next',
-                    prevEl: '.respBanner .swiper-button-prev',
-                },
-                on: {
-                    slideChange () {
-                        // console.log('改变了，activeIndex为' + this.activeIndex);
-                    },
-                    init (swiper) {
-                        // setTimeout(() => {that.bannerDom = true}, 300)
-                    },
-                },
             })
         },
         async getBanner() {
             const that = this
-            let { homeBanner } = that.$store.state
+            let homeBanner = that.$store.state.homeBanner
             if (!homeBanner.length) {
-                const result = await this.$tools.requests(this.$routeApi.api_banner, {
-                    columnId: 1,
-                })
+                const result = await this.$request.common.bannerData({ type: 0 })
                 that.$tools.dd('banner', result)
-                homeBanner = result.data
+                homeBanner = result
                 that.$store.commit('setHomeBanner', homeBanner)
             }
             this.paramData = homeBanner
@@ -84,3 +78,19 @@ export default {
     },
 }
 </script>
+<style scoped lang="scss">
+.respBanner {
+    .swiper-slide {
+        .banner-content {
+            .function-transition-all-ease(0.8s);
+            .function-transform-scale(0.3);
+        }
+        &.swiper-slide-active {
+            .banner-content {
+                .function-transition-all-ease(0.8s);
+                .function-transform-scale(1.0);
+            }
+        }
+    }
+}
+</style>

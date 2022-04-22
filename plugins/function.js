@@ -1,5 +1,23 @@
+import { Message } from "element-ui"
+
 export default ({ route, app }, inject) => {
     const tools = {
+        gohref(item) {
+            if(item.gourl) {
+                window.open(item.gourl)
+            } else {
+                if(item.moban_id) {
+                    let url = app.i18n.path(`article/${item.moban_id}/${item.id}`)
+                    console.log(url)
+                    // return url
+                    app.router.push({
+                        path: url
+                    })
+                } else {
+                    // Message.warning('开发中...')
+                }
+            }
+        },
         deepClone(obj) {
             const newObj = Array.isArray(obj) ? [] : {}
 
