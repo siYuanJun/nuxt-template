@@ -1,5 +1,5 @@
 <template>
-    <div id="positionPage" class="bg-gray-f5f7f9 pt-md pb-md">
+    <div id="positionPage" class=" pt-md pb-md">
         <div class="wp">
             <div class="text-sm flex items-center item-pos">
                 <div class="">
@@ -46,6 +46,7 @@ export default {
     watch: {
         textPrentPos: {
             handler(val) {
+                this.textPos = []
                 val.forEach((item) => {
                     if (item.title) {
                         this.textPos.push({

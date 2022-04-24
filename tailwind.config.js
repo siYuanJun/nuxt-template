@@ -30,8 +30,10 @@ module.exports = {
         },
         spacing: {
             none: '0',
+            one: '1px',
             xs: '0.305rem',
             sm: '0.625rem',
+            sml: '0.825rem',
             md: '1.25rem',
             lg: '1.875rem',
             xl: '3.75rem',
@@ -44,8 +46,7 @@ module.exports = {
             4: '4px',
         },
         colors: {
-            black: colors.black,
-            white: colors.white,
+            ...colors,
             gray: {
                 ...colors.gray,
                 666: '#999999',
@@ -82,8 +83,8 @@ module.exports = {
         },
     },
     variants: {
-        backgroundColor: ['responsive'],
-        borderColor: ['responsive'],
+        // backgroundColor: ['responsive'],
+        // borderColor: ['responsive'],
         extend: {},
     },
     plugins: [],
