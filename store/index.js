@@ -6,7 +6,10 @@ export const state = () => ({
     loginId: '',
     userInfo: {},
     homeBanner: [],
-    columnListMenu: {}
+    columnListMenu: {},
+    itemBanner: {},
+
+    navMenuData: {},
 })
 
 export const mutations = {
@@ -29,5 +32,11 @@ export const mutations = {
     },
     setHomeBanner(state, data) {
         state.homeBanner = data
+    },
+    setItemBanner(state, data) {
+        state.itemBanner = data
+    },
+    setNavMenuData(state, data) {
+        state.navMenuData = data
     }
 }

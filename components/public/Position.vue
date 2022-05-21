@@ -13,7 +13,7 @@
                 </div>
                 <div v-for="(item, index) in textPos" :key="index" class="flex items-center">
                     <template v-if="item.title">
-                        <a v-if="item.url" :href="$i18n.path(item.url)">{{ item.title }}</a>
+                        <nuxt-link class=" text-white" v-if="item.url" :to="$i18n.path(item.url)">{{ item.title }}</nuxt-link>
                         <span v-else>{{ item.title }}</span>
                         <div class="icon-right ml-xs mr-xs">
                             >

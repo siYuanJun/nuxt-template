@@ -36,4 +36,29 @@ export default (axios) => ({
     linkIndex(params) {
         return axios.$get(`/api/v1/web/link/index`, {params})
     },
+    // 父子栏目下文章
+    columnSonFindInfo(params) {
+        return axios.$get(`/api/v1/web/info/columnSonFindInfo`, {params})
+    },
+
+    // banner
+    banner(params) {
+        return axios.$get(`/api/v1/web/banner`, {params})
+    },
+
+    // 科学期刊
+    periodicalList(params) {
+        return axios.$get(`/api/v1/web/periodical/list`, {params})
+    },
+
+    // home-banner
+    home_banner(params) {
+        return axios.$get(`/api/v1/web/home_banner`, {params})
+    },
+
+
+    // 栏目导航数据
+    home_nav_data(params) {
+        return axios.$get(`/api/v1/web/home_nav_data`, {params})
+    },
 })
