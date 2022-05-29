@@ -82,13 +82,13 @@ export default {
 .respBanner {
     .swiper-slide {
         .banner-content {
-            .function-transition-all-ease(0.8s);
-            .function-transform-scale(0.3);
+            @include function-transition-all-ease(0.8s);
+            @include function-transform-scale-rotate(0.3);
         }
         &.swiper-slide-active {
             .banner-content {
-                .function-transition-all-ease(0.8s);
-                .function-transform-scale(1.0);
+                @include function-transition-all-ease(0.8s);
+                @include function-transform-scale-rotate(1.0);
             }
         }
     }

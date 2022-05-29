@@ -1,12 +1,12 @@
 <template>
-    <div class="">
+    <div class="block md:hidden">
         <div class="bg-white shadow-md">
             <div class="wp-md">
                 <div class="menu-swiper relative pl-lg pr-lg">
                     <div v-show="!loadingPage" class="swiper-mantle"></div>
-                    <div class="swiper swiper-container fs0" v-if="cateListData.length">
+                    <div class="swiper swiper-container fs0" v-if="cateListData.list.length">
                         <div class="swiper-wrapper">
-                            <div v-for="(item, index) in cateListData" :key="index" class="relative swiper-slide">
+                            <div v-for="(item, index) in cateListData.list" :key="index" class="relative swiper-slide">
                                 <div class="item-hover">
                                     <a
                                         @click="cateChange(item)"
@@ -29,10 +29,10 @@
             </div>
         </div>
         <div class="wp-md" v-if="cateListChild.length">
-            <div class="pb-lg pt-lg">
+            <div class="pb-lg pt-sm md:pt-lg flex flex-wrap">
                 <a
                     @click="cateChange(item, 3)"
-                    class="rounded-md border-gray-200 border-default mr-sm pt-sm pb-sm pl-lg pr-lg text-df text-black"
+                    class="block mb-sm rounded-md border-gray-200 border-default mr-sm pt-xs pb-xs pl-md pr-md text-md text-black"
                     :class="{
                         'bg-themes text-white': cateIndex == item.id,
                     }"
@@ -48,17 +48,27 @@
 
 <script>
 export default {
+    name: 'Menu',
     props: {
         cateIndex: {
             type: Number | String,
             default: 0,
-        }
+        },
+        cateList: {
+            type: Array,
+            default: () => {
+                return []
+            },
+        },
     },
     data() {
         return {
             loadingPage: false,
             cateListChild: [],
-            cateListData: [],
+            cateListData: {
+                column: {},
+                list: []
+            },
 
             column_id: 0,
         }
@@ -78,7 +88,7 @@ export default {
     },
     methods: {
         setColumnChild(column_id) {
-            let cateListChild = this.cateListData.filter((item) => item.id === column_id)[0]
+            let cateListChild = this.cateListData.list.filter((item) => item.id === column_id)[0]
             if (cateListChild) {
                 this.cateListChild = cateListChild.child
             }
@@ -111,7 +121,7 @@ export default {
                 res = await this.$request.common.columnMenu({ column_id: this.column_id })
                 res = res.data
 
-                let setColumnCachedUnid = this.setColumnCachedUnid(res)
+                let setColumnCachedUnid = this.setColumnCachedUnid(res.list)
 
                 console.log("二级栏目请求", setColumnCachedUnid)
                 this.$store.commit('setColumnMenu', {...columnListMenu, [setColumnCachedUnid]: res})
@@ -128,6 +138,8 @@ export default {
         cateChange(item, type) {
             if(type === 3) {
                 this.$emit('cateChange', item, type)
+
+                this.$tools.gohref({ id: this.column_id, moban_id: item.moban_id }, `idss=${item.id}#menuDom`)
             } else {
                 this.column_id = item.id
 

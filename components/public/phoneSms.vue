@@ -96,8 +96,8 @@ export default {
     }
 
     &:hover {
-        color: $---theme-color;
-        border: 1px solid $---theme-color;
+        color: $theme-color;
+        border: 1px solid $theme-color;
     }
 }
 </style>
