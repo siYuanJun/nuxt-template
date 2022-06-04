@@ -6,7 +6,8 @@
 
 ```bash
 # install dependencies
-$ npm install
+
+> 建议使用 npm update. npm install 会有未知问题～
 
 # serve with hot reload at localhost:3000
 $ npm dev

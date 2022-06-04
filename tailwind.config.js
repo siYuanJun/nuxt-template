@@ -31,12 +31,12 @@ module.exports = {
         spacing: {
             none: '0',
             one: '1px',
-            xs: '0.305rem',
-            sm: '0.625rem',
-            md: '1.25rem',
-            lg: '1.875rem',
-            xl: '3.75rem',
-            xxl: '7.5rem',
+            xs: '0.312rem', // 5px
+            sm: '0.625rem', // 10px
+            md: '1.25rem', // 20px
+            lg: '1.875rem', // 30px
+            xl: '3.125rem', // 50px
+            xxl: '7.5rem', // 120px
         },
         borderWidth: {
             default: '1px',
@@ -48,19 +48,19 @@ module.exports = {
             ...colors,
             gray: {
                 ...colors.gray,
-                666: '#999999',
-                999: '#666666',
+                666: '#666',
+                999: '#999',
             },
         },
         fontSize: {
             none: '0',
             one: '1px',
-            xs: '0.75rem',
-            sm: '0.875rem',
-            md: '1rem',
-            lg: '1.123rem',
-            xl: '1.375rem',
-            xxl: '1.75rem',
+            xs: '0.75rem', // 12px
+            sm: '0.875rem', // 14px
+            md: '1rem', // 16px
+            lg: '1.123rem', // 18px
+            xl: '1.375rem', // 22px
+            xxl: '1.75rem', // 28px
         },
         fontWeight: {
             normal: 400,
