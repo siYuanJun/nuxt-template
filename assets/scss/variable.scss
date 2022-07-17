@@ -1,0 +1,15 @@
+/*
+全局变量
+*/
+
+$color-themes-blue: #007ac5;
+
+$text-gray-666: '#666';
+
+$font-size-normal: 16px;
+$font-family-regular: 'Microsoft YaHei, Tahoma, Geneva, sans-serif';
+$font-light-color: '#999';
+
+:root {
+    --color-themes: $color-themes-blue;
+}

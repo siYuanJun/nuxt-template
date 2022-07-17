@@ -2,7 +2,16 @@ import env from './env'
 
 const { API_BASE_URL, API_BASE_SECRET, NODE_ENV, DEBUG } = env
 
-const plugins = []
+const plugins = [
+    [
+        'component',
+        {
+            libraryName: 'element-ui',
+            styleLibraryName: 'theme-chalk',
+        },
+    ],
+]
+
 if (NODE_ENV === 'production') {
     plugins.push('transform-remove-console')
 }
@@ -28,24 +37,30 @@ export default {
         ],
         link: [
             { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-            { rel: 'stylesheet', href: '/plugins/swiper/swiper.min.css' },
+            // { rel: 'stylesheet', href: '/plugins/' },
         ],
-        script: [{ src: '/js/jquery.min.js' }, { src: '/plugins/swiper/swiper.min.js' }, { src: '/js/common.js' }],
+        script: [{ src: '/js/jquery.min.js' }, { src: '/js/common.js' }],
     },
 
     // Global CSS (https://go.nuxtjs.dev/config-css)
-    css: [
-        {
-            src: '~/assets/css/normailze.scss',
-        },
-        {
-            src: '~/static/plugins/colorui/normailze.scss',
-        },
-        'fluid-player/src/css/fluidplayer.css',
-    ],
+    css: ['@/assets/scss/app.scss', '@/static/plugins/colorui/normailze.scss'],
+
+    // Initial loading css
+    styleResources: {
+        // 用于修复无法找到全局变量
+        scss: ['@/assets/scss/init.scss'],
+    },
 
     // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-    plugins: [{ src: '@/plugins/axios' }, { src: '@/plugins/i18n' }, { src: '@/plugins/function' }, { src: '@/plugins/axios-plugin' }, { src: '@/plugins/common' }, { src: '@/main' }],
+    plugins: [
+        { src: '@/plugins/axios' },
+        { src: '@/plugins/i18n' },
+        { src: '@/plugins/function' },
+        { src: '@/plugins/axios-plugin' },
+        { src: '@/plugins/common' },
+        { src: '@/plugins/vue-swiper' },
+        { src: '@/plugins/main' },
+    ],
 
     generate: {
         routes: ['/'],
@@ -98,11 +113,6 @@ export default {
                 changeOrigin: true,
             },
         },
-    },
-
-    // Initial loading css
-    styleResources: {
-        scss: ['./assets/css/_variable.scss', './assets/css/_mixins.scss'],
     },
 
     // Build Configuration (https://go.nuxtjs.dev/config-build)

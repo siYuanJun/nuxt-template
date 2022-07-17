@@ -7,11 +7,6 @@
 </template>
 
 <script>
-if (process.browser) {
-    // 在这里根据环境引入wow.js
-
-}
-
 export default {
     components: {},
     asyncData({ params, $axios, app, route, store }) {
